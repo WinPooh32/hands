@@ -1,16 +1,19 @@
 package read
 
 import (
+	"bufio"
 	"context"
 	"fmt"
+	"io"
 	"os"
+	"strings"
 
 	"github.com/WinPooh32/hands/pkg/mcputil"
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
 
 type ReadInput struct {
-	Path string `json:"path" jsonschema:"path to the file to read"`
+	Path string `json:"path" jsonschema:"path to the file to read.\nResults are returned using cat -n format, with line numbers starting at 1."`
 }
 
 func Read(ctx context.Context, _ *mcp.CallToolRequest, input ReadInput) (*mcp.CallToolResult, any, error) {
@@ -18,10 +21,35 @@ func Read(ctx context.Context, _ *mcp.CallToolRequest, input ReadInput) (*mcp.Ca
 		return mcputil.ErrorResult("path is required"), nil, nil
 	}
 
-	data, err := os.ReadFile(input.Path)
+	file, err := os.Open(input.Path)
 	if err != nil {
-		return mcputil.ErrorResult(fmt.Sprintf("failed to read file: %v", err)), nil, nil
+		return mcputil.ErrorResult(fmt.Sprintf("open file: %v", err)), nil, nil
 	}
 
-	return mcputil.TextResult(string(data)), nil, nil
+	defer func() { _ = file.Close() }()
+
+	text, err := readWithLineNumbers(file)
+	if err != nil {
+		return mcputil.ErrorResult(fmt.Sprintf("read file: %v", err)), nil, nil
+	}
+
+	return mcputil.TextResult(text), nil, nil
+}
+
+func readWithLineNumbers(r io.Reader) (string, error) {
+	sb := strings.Builder{}
+	scanner := bufio.NewScanner(r)
+	scanner.Split(bufio.ScanLines)
+
+	lineNum := 0
+	for scanner.Scan() {
+		lineNum++
+		fmt.Fprintf(&sb, "%6d→%s\n", lineNum, scanner.Text())
+	}
+
+	if err := scanner.Err(); err != nil {
+		return "", fmt.Errorf("scan line: %w", err)
+	}
+
+	return sb.String(), nil
 }
