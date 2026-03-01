@@ -11,7 +11,7 @@ import (
 )
 
 type GlobInput struct {
-	Pattern string `json:"pattern" jsonschema:"glob pattern to match (e.g., **/*.go)"`
+	Pattern string `json:"pattern" jsonschema:"glob pattern to match (e.g., *.go)"`
 	Dir     string `json:"dir,omitzero" jsonschema:"directory to search in (default: current directory)"`
 }
 
