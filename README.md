@@ -12,7 +12,7 @@ go install github.com/WinPooh32/hands
 
 You can use [f/mcptools](https://github.com/f/mcptools) for testing tools.
 
-Example of Glob tool execution from terminal:
+Example of the Glob tool execution from a terminal:
 
 ```sh
 $ mcptools call Glob --params '{"pattern":"*.go"}' hands
