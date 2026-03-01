@@ -1,5 +1,5 @@
 values:
-  readDescription: "Чтение содержимого файла"
+  readDescription: "Чтение содержимого файла в cat -n формате, с номерами строк начинающихся с 1"
   readArgPath: "Путь к файлу для чтения"
   readArgEncoding: "Кодировка файла (по умолчанию: utf8)"
 

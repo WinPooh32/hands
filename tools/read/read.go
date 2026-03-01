@@ -13,7 +13,7 @@ import (
 )
 
 type ReadInput struct {
-	Path string `json:"path" jsonschema:"path to the file to read.\nResults are returned using cat -n format, with line numbers starting at 1."`
+	Path string `json:"path" jsonschema:"path to the file to read"`
 }
 
 func Read(ctx context.Context, _ *mcp.CallToolRequest, input ReadInput) (*mcp.CallToolResult, any, error) {

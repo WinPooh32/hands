@@ -1,5 +1,5 @@
 values:
-  readDescription: "Read file contents"
+  readDescription: "Read file contents in cat -n format, with line numbers starting at 1"
   readArgPath: "Path to the file to read"
   readArgEncoding: "File encoding (default: utf8)"
 
