@@ -41,7 +41,7 @@ func TestServerRunStdio(t *testing.T) {
 	done := make(chan error, 1)
 
 	go func() {
-		err := srv.Run(ctx, &tools.ServerConfig{HTTPAddr: "", Language: "", StdioMode: true, HTTPMode: false}, kit)
+		err := srv.Run(ctx, &tools.ServerConfig{HTTPAddr: "", StdioMode: true, HTTPMode: false}, kit)
 		done <- err
 	}()
 

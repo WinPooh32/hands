@@ -18,7 +18,6 @@ const (
 
 type ServerConfig struct {
 	HTTPAddr  string
-	Language  string
 	StdioMode bool
 	HTTPMode  bool
 }
@@ -37,7 +36,6 @@ func (srv *Server) ParseArgsConfig() (*ServerConfig, error) {
 
 	config := &ServerConfig{
 		HTTPAddr:  *httpAddr,
-		Language:  *language,
 		StdioMode: *httpAddr == "",
 		HTTPMode:  *httpAddr != "",
 	}
@@ -46,12 +44,12 @@ func (srv *Server) ParseArgsConfig() (*ServerConfig, error) {
 		return nil, fmt.Errorf("failed to load locales: %w", err)
 	}
 
+	i18n.Language = *language
+
 	return config, nil
 }
 
 func (srv *Server) Run(ctx context.Context, c *ServerConfig, kit *Kit) error {
-	i18n.Language = c.Language
-
 	switch {
 	case c.HTTPMode:
 		return srv.runHTTP(ctx, c.HTTPAddr, kit)
