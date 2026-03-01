@@ -1,7 +1,27 @@
 values:
-  readDescription: TODO
-  writeDescription: TODO
-  editDescription: TODO
-  globDescription: TODO
-  grepDescription: TODO
-  bashDescription: TODO
+  readDescription: "Read file contents"
+  readArgPath: "Path to the file to read"
+  readArgEncoding: "File encoding (default: utf8)"
+
+  writeDescription: "Write content to a file"
+  writeArgPath: "Path to the file to write"
+  writeArgContent: "Content to write"
+  writeArgEncoding: "File encoding (default: utf8)"
+
+  editDescription: "Edit a file using search and replace"
+  editArgPath: "Path to the file to edit"
+  editArgSearch: "String to search for"
+  editArgReplace: "String to replace with"
+
+  globDescription: "Find files by pattern"
+  globArgPattern: "Glob pattern to match (e.g., **/*.go)"
+  globArgDir: "Directory to search in (default: current directory)"
+
+  grepDescription: "Search for patterns in files"
+  grepArgPattern: "Pattern to search for (regex)"
+  grepArgPath: "File or directory to search in"
+  grepArgIgnoreCase: "Ignore case in search (default: false)"
+
+  bashDescription: "Execute a bash command"
+  bashArgCommand: "Bash command to execute"
+  bashArgWorkingDir: "Working directory (default: current directory)"

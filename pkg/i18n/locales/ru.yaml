@@ -1,7 +1,27 @@
 values:
-  readDescription: TODO
-  writeDescription: TODO
-  editDescription: TODO
-  globDescription: TODO
-  grepDescription: TODO
-  bashDescription: TODO
+  readDescription: "Чтение содержимого файла"
+  readArgPath: "Путь к файлу для чтения"
+  readArgEncoding: "Кодировка файла (по умолчанию: utf8)"
+
+  writeDescription: "Запись содержимого в файл"
+  writeArgPath: "Путь к файлу для записи"
+  writeArgContent: "Содержимое для записи"
+  writeArgEncoding: "Кодировка файла (по умолчанию: utf8)"
+
+  editDescription: "Редактирование файла через поиск и замену"
+  editArgPath: "Путь к файлу для редактирования"
+  editArgSearch: "Строка для поиска"
+  editArgReplace: "Строка для замены"
+
+  globDescription: "Поиск файлов по шаблону"
+  globArgPattern: "Шаблон glob (например, **/*.go)"
+  globArgDir: "Директория для поиска (по умолчанию: текущая)"
+
+  grepDescription: "Поиск шаблонов в файлах"
+  grepArgPattern: "Шаблон для поиска (regex)"
+  grepArgPath: "Файл или директория для поиска"
+  grepArgIgnoreCase: "Игнорировать регистр (по умолчанию: false)"
+
+  bashDescription: "Выполнение bash-команды"
+  bashArgCommand: "Bash-команда для выполнения"
+  bashArgWorkingDir: "Рабочая директория (по умолчанию: текущая)"

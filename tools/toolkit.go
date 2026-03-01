@@ -1,34 +1,63 @@
 package tools
 
-import "github.com/WinPooh32/hands/pkg/tool"
+import (
+	"fmt"
 
-type CallFilter struct {
+	"github.com/WinPooh32/hands/pkg/i18n"
+	"github.com/WinPooh32/hands/tools/bash"
+	"github.com/WinPooh32/hands/tools/edit"
+	"github.com/WinPooh32/hands/tools/glob"
+	"github.com/WinPooh32/hands/tools/grep"
+	"github.com/WinPooh32/hands/tools/read"
+	"github.com/WinPooh32/hands/tools/write"
+	"github.com/modelcontextprotocol/go-sdk/mcp"
+)
+
+type CallFilter struct{}
+
+type Kit struct {
+	server *mcp.Server
+	tools  []mcp.Tool
 }
 
-type Kit struct{}
+func (kit *Kit) Add(t mcp.Tool) error {
+	if t.Name == "" {
+		return fmt.Errorf("tool name cannot be empty")
+	}
 
-func (kit *Kit) Add(t tool.Tool) error {
-	panic("TODO")
-}
+	kit.tools = append(kit.tools, t)
 
-type HTTPConfig struct{}
-
-func (kit *Kit) serveMCPHTTP(c HTTPConfig) error {
-	panic("TODO")
-}
-
-type StdioConfig struct{}
-
-func (kit *Kit) serveMCPStdio(c StdioConfig) error {
-	panic("TODO")
+	return nil
 }
 
 func NewDefault(filters []CallFilter) *Kit {
-	// make a new toolkit with all tools
-	panic("TODO")
+	kit := New(filters)
+
+	// Add default tools
+	mcpToolRead := &mcp.Tool{Name: "read", Description: i18n.Tr(i18n.ReadDescription), Meta: nil, Annotations: nil, InputSchema: nil, OutputSchema: nil, Title: "", Icons: nil}
+	mcp.AddTool(kit.server, mcpToolRead, read.Read)
+
+	mcpToolWrite := &mcp.Tool{Name: "write", Description: i18n.Tr(i18n.WriteDescription), Meta: nil, Annotations: nil, InputSchema: nil, OutputSchema: nil, Title: "", Icons: nil}
+	mcp.AddTool(kit.server, mcpToolWrite, write.Write)
+
+	mcpToolEdit := &mcp.Tool{Name: "edit", Description: i18n.Tr(i18n.EditDescription), Meta: nil, Annotations: nil, InputSchema: nil, OutputSchema: nil, Title: "", Icons: nil}
+	mcp.AddTool(kit.server, mcpToolEdit, edit.Edit)
+
+	mcpToolGlob := &mcp.Tool{Name: "glob", Description: i18n.Tr(i18n.GlobDescription), Meta: nil, Annotations: nil, InputSchema: nil, OutputSchema: nil, Title: "", Icons: nil}
+	mcp.AddTool(kit.server, mcpToolGlob, glob.Glob)
+
+	mcpToolGrep := &mcp.Tool{Name: "grep", Description: i18n.Tr(i18n.GrepDescription), Meta: nil, Annotations: nil, InputSchema: nil, OutputSchema: nil, Title: "", Icons: nil}
+	mcp.AddTool(kit.server, mcpToolGrep, grep.Grep)
+
+	mcpToolBash := &mcp.Tool{Name: "bash", Description: i18n.Tr(i18n.BashDescription), Meta: nil, Annotations: nil, InputSchema: nil, OutputSchema: nil, Title: "", Icons: nil}
+	mcp.AddTool(kit.server, mcpToolBash, bash.Bash)
+
+	return kit
 }
 
 func New(filters []CallFilter) *Kit {
-	// make a new empty toolkit
-	panic("TODO")
+	return &Kit{
+		server: mcp.NewServer(&mcp.Implementation{Name: "hands", Version: "0.1.0", Title: "", WebsiteURL: "", Icons: nil}, nil),
+		tools:  []mcp.Tool{},
+	}
 }
