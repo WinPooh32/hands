@@ -35,8 +35,6 @@ func Bash(ctx context.Context, _ *mcp.CallToolRequest, input BashInput) (*mcp.Ca
 		return mcputil.ErrorResult("working directory is not a directory"), nil, nil
 	}
 
-	// Any user inputs is allowed to exec.
-	//nolint:gosec
 	cmd := exec.CommandContext(ctx, "/bin/bash", "-c", input.Command)
 	cmd.Dir = workingDir
 

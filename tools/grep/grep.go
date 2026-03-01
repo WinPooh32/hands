@@ -79,8 +79,6 @@ func Grep(ctx context.Context, _ *mcp.CallToolRequest, input GrepInput) (*mcp.Ca
 }
 
 func searchFile(path string, re *regexp.Regexp, results *[]string) error {
-	// Any file allowed to open by the user input.
-	//nolint:gosec
 	file, err := os.Open(path)
 	if err != nil {
 		return fmt.Errorf("failed to open file %s: %w", path, err)
