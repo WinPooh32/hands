@@ -12,7 +12,7 @@ import (
 
 type GlobInput struct {
 	Pattern string `json:"pattern" jsonschema:"glob pattern to match (e.g., **/*.go)"`
-	Dir     string `json:"dir" jsonschema:"directory to search in (default: current directory)"`
+	Dir     string `json:"dir,omitzero" jsonschema:"directory to search in (default: current directory)"`
 }
 
 func Glob(ctx context.Context, _ *mcp.CallToolRequest, input GlobInput) (*mcp.CallToolResult, any, error) {

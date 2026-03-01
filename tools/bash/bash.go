@@ -12,7 +12,7 @@ import (
 )
 
 type BashInput struct {
-	WorkingDir string `json:"workingDir" jsonschema:"working directory (default: current directory)"`
+	WorkingDir string `json:"workingDir,omitzero" jsonschema:"working directory (default: current directory)"`
 	Command    string `json:"command" jsonschema:"bash command to execute"`
 }
 

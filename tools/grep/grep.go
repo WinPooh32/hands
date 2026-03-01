@@ -15,7 +15,7 @@ import (
 type GrepInput struct {
 	Pattern    string `json:"pattern" jsonschema:"pattern to search for (regex)"`
 	Path       string `json:"path" jsonschema:"file or directory to search in"`
-	IgnoreCase bool   `json:"ignoreCase" jsonschema:"ignore case in search (default: false)"`
+	IgnoreCase bool   `json:"ignoreCase,omitzero" jsonschema:"ignore case in search (default: false)"`
 }
 
 func Grep(ctx context.Context, _ *mcp.CallToolRequest, input GrepInput) (*mcp.CallToolResult, any, error) {
