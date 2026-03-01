@@ -2,6 +2,9 @@
 
 Minimal but robust toolkit for your agents: Read, Write, Edit, Glob, Grep, Bash.
 
+> [!CAUTION]
+> These tools are not safe! Use them only in an sandboxed environment.
+
 ## Install
 
 ```sh
