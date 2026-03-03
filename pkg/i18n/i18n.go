@@ -3,6 +3,7 @@ package i18n
 import (
 	"embed"
 	"fmt"
+	"sync"
 
 	"gopkg.in/yaml.v3"
 )
@@ -40,12 +41,17 @@ var localesFS embed.FS
 
 var locales map[string]locale
 
+var mut sync.Mutex
+
 type locale struct {
 	Name   string
 	Values map[Key]string
 }
 
 func Load() error {
+	mut.Lock()
+	defer mut.Unlock()
+
 	locales = make(map[string]locale)
 
 	entries, err := localesFS.ReadDir("locales")
@@ -82,6 +88,9 @@ func Load() error {
 }
 
 func Tr(key Key) string {
+	mut.Lock()
+	defer mut.Unlock()
+
 	if Language == "" {
 		Language = "en"
 	}
