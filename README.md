@@ -8,7 +8,7 @@ Minimal but robust toolkit for your agents: Read, Write, Edit, Glob, Grep, Bash.
 ## Install
 
 ```sh
-go install github.com/WinPooh32/hands
+go install github.com/WinPooh32/hands@latest
 ```
 
 ## Debug
