@@ -7,13 +7,14 @@ import (
 	"os/exec"
 	"strings"
 
+	"github.com/WinPooh32/hands/pkg/i18n"
 	"github.com/WinPooh32/hands/pkg/mcputil"
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
 
 type BashInput struct {
-	WorkingDir string `json:"workingDir,omitzero" jsonschema:"working directory (default: current directory)"`
-	Command    string `json:"command" jsonschema:"bash command to execute"`
+	WorkingDir string `json:"workingDir,omitzero"`
+	Command    string `json:"command"`
 }
 
 func Bash(ctx context.Context, _ *mcp.CallToolRequest, input BashInput) (*mcp.CallToolResult, any, error) {
@@ -44,4 +45,20 @@ func Bash(ctx context.Context, _ *mcp.CallToolRequest, input BashInput) (*mcp.Ca
 	}
 
 	return mcputil.TextResult(strings.TrimSpace(string(output))), nil, nil
+}
+
+// Schema returns the JSON schema for BashInput with translated descriptions
+func Schema() any {
+	return map[string]any{
+		"type": "object",
+		"properties": map[string]any{
+			"command": map[string]any{
+				"description": i18n.Tr(i18n.BashArgCommand),
+			},
+			"workingDir": map[string]any{
+				"description": i18n.Tr(i18n.BashArgWorkingDir),
+			},
+		},
+		"required": []string{"command"},
+	}
 }

@@ -6,13 +6,14 @@ import (
 	"os"
 	"path/filepath"
 
+	"github.com/WinPooh32/hands/pkg/i18n"
 	"github.com/WinPooh32/hands/pkg/mcputil"
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
 
 type GlobInput struct {
-	Pattern string `json:"pattern" jsonschema:"glob pattern to match (e.g., *.go)"`
-	Dir     string `json:"dir,omitzero" jsonschema:"directory to search in (default: current directory)"`
+	Pattern string `json:"pattern"`
+	Dir     string `json:"dir,omitzero"`
 }
 
 func Glob(ctx context.Context, _ *mcp.CallToolRequest, input GlobInput) (*mcp.CallToolResult, any, error) {
@@ -55,4 +56,20 @@ func Glob(ctx context.Context, _ *mcp.CallToolRequest, input GlobInput) (*mcp.Ca
 	}
 
 	return mcputil.TextResult(result), nil, nil
+}
+
+// Schema returns the JSON schema for GlobInput with translated descriptions
+func Schema() any {
+	return map[string]any{
+		"type": "object",
+		"properties": map[string]any{
+			"pattern": map[string]any{
+				"description": i18n.Tr(i18n.GlobArgPattern),
+			},
+			"dir": map[string]any{
+				"description": i18n.Tr(i18n.GlobArgDir),
+			},
+		},
+		"required": []string{"pattern"},
+	}
 }

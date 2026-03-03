@@ -6,6 +6,7 @@ import (
 	"os"
 	"strings"
 
+	"github.com/WinPooh32/hands/pkg/i18n"
 	"github.com/WinPooh32/hands/pkg/mcputil"
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
@@ -13,9 +14,9 @@ import (
 const fileMode os.FileMode = 0600
 
 type EditInput struct {
-	Path    string `json:"path" jsonschema:"path to the file to edit"`
-	Search  string `json:"search" jsonschema:"string to search for"`
-	Replace string `json:"replace" jsonschema:"string to replace with"`
+	Path    string `json:"path"`
+	Search  string `json:"search"`
+	Replace string `json:"replace"`
 }
 
 func Edit(ctx context.Context, _ *mcp.CallToolRequest, input EditInput) (*mcp.CallToolResult, any, error) {
@@ -46,4 +47,23 @@ func Edit(ctx context.Context, _ *mcp.CallToolRequest, input EditInput) (*mcp.Ca
 	}
 
 	return mcputil.TextResult(fmt.Sprintf("Successfully edited %s", input.Path)), nil, nil
+}
+
+// Schema returns the JSON schema for EditInput with translated descriptions
+func Schema() any {
+	return map[string]any{
+		"type": "object",
+		"properties": map[string]any{
+			"path": map[string]any{
+				"description": i18n.Tr(i18n.EditArgPath),
+			},
+			"search": map[string]any{
+				"description": i18n.Tr(i18n.EditArgSearch),
+			},
+			"replace": map[string]any{
+				"description": i18n.Tr(i18n.EditArgReplace),
+			},
+		},
+		"required": []string{"path", "search", "replace"},
+	}
 }

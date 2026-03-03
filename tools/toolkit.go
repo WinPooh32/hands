@@ -37,22 +37,22 @@ func (kit *Kit) Add(t mcp.Tool) error {
 func NewDefault(filters []CallFilter) *Kit {
 	kit := New(filters)
 
-	mcpToolRead := &mcp.Tool{Name: "Read", Description: i18n.Tr(i18n.ReadDescription), Meta: nil, Annotations: nil, InputSchema: nil, OutputSchema: nil, Title: "", Icons: nil}
+	mcpToolRead := &mcp.Tool{Name: "Read", Description: i18n.Tr(i18n.ReadDescription), Meta: nil, Annotations: nil, InputSchema: read.Schema(), OutputSchema: nil, Title: "", Icons: nil}
 	mcp.AddTool(kit.server, mcpToolRead, read.Read)
 
-	mcpToolWrite := &mcp.Tool{Name: "Write", Description: i18n.Tr(i18n.WriteDescription), Meta: nil, Annotations: nil, InputSchema: nil, OutputSchema: nil, Title: "", Icons: nil}
+	mcpToolWrite := &mcp.Tool{Name: "Write", Description: i18n.Tr(i18n.WriteDescription), Meta: nil, Annotations: nil, InputSchema: write.Schema(), OutputSchema: nil, Title: "", Icons: nil}
 	mcp.AddTool(kit.server, mcpToolWrite, write.Write)
 
-	mcpToolEdit := &mcp.Tool{Name: "Edit", Description: i18n.Tr(i18n.EditDescription), Meta: nil, Annotations: nil, InputSchema: nil, OutputSchema: nil, Title: "", Icons: nil}
+	mcpToolEdit := &mcp.Tool{Name: "Edit", Description: i18n.Tr(i18n.EditDescription), Meta: nil, Annotations: nil, InputSchema: edit.Schema(), OutputSchema: nil, Title: "", Icons: nil}
 	mcp.AddTool(kit.server, mcpToolEdit, edit.Edit)
 
-	mcpToolGlob := &mcp.Tool{Name: "Glob", Description: i18n.Tr(i18n.GlobDescription), Meta: nil, Annotations: nil, InputSchema: nil, OutputSchema: nil, Title: "", Icons: nil}
+	mcpToolGlob := &mcp.Tool{Name: "Glob", Description: i18n.Tr(i18n.GlobDescription), Meta: nil, Annotations: nil, InputSchema: glob.Schema(), OutputSchema: nil, Title: "", Icons: nil}
 	mcp.AddTool(kit.server, mcpToolGlob, glob.Glob)
 
-	mcpToolGrep := &mcp.Tool{Name: "Grep", Description: i18n.Tr(i18n.GrepDescription), Meta: nil, Annotations: nil, InputSchema: nil, OutputSchema: nil, Title: "", Icons: nil}
+	mcpToolGrep := &mcp.Tool{Name: "Grep", Description: i18n.Tr(i18n.GrepDescription), Meta: nil, Annotations: nil, InputSchema: grep.Schema(), OutputSchema: nil, Title: "", Icons: nil}
 	mcp.AddTool(kit.server, mcpToolGrep, grep.Grep)
 
-	mcpToolBash := &mcp.Tool{Name: "Bash", Description: i18n.Tr(i18n.BashDescription), Meta: nil, Annotations: nil, InputSchema: nil, OutputSchema: nil, Title: "", Icons: nil}
+	mcpToolBash := &mcp.Tool{Name: "Bash", Description: i18n.Tr(i18n.BashDescription), Meta: nil, Annotations: nil, InputSchema: bash.Schema(), OutputSchema: nil, Title: "", Icons: nil}
 	mcp.AddTool(kit.server, mcpToolBash, bash.Bash)
 
 	return kit

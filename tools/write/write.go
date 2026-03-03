@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/WinPooh32/hands/pkg/i18n"
 	"github.com/WinPooh32/hands/pkg/mcputil"
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
@@ -12,8 +13,8 @@ import (
 const fileMode os.FileMode = 0600
 
 type WriteInput struct {
-	Path    string `json:"path" jsonschema:"path to the file to write"`
-	Content string `json:"content" jsonschema:"content to write"`
+	Path    string `json:"path"`
+	Content string `json:"content"`
 }
 
 func Write(ctx context.Context, _ *mcp.CallToolRequest, input WriteInput) (*mcp.CallToolResult, any, error) {
@@ -31,4 +32,20 @@ func Write(ctx context.Context, _ *mcp.CallToolRequest, input WriteInput) (*mcp.
 	}
 
 	return mcputil.TextResult(fmt.Sprintf("Successfully wrote to %s", input.Path)), nil, nil
+}
+
+// Schema returns the JSON schema for WriteInput with translated descriptions
+func Schema() any {
+	return map[string]any{
+		"type": "object",
+		"properties": map[string]any{
+			"path": map[string]any{
+				"description": i18n.Tr(i18n.WriteArgPath),
+			},
+			"content": map[string]any{
+				"description": i18n.Tr(i18n.WriteArgContent),
+			},
+		},
+		"required": []string{"path", "content"},
+	}
 }

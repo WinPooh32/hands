@@ -8,6 +8,7 @@ import (
 	"os"
 	"strings"
 
+	"github.com/WinPooh32/hands/pkg/i18n"
 	"github.com/WinPooh32/hands/pkg/mcputil"
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
@@ -52,4 +53,17 @@ func readWithLineNumbers(r io.Reader) (string, error) {
 	}
 
 	return sb.String(), nil
+}
+
+// Schema returns the JSON schema for ReadInput with translated descriptions
+func Schema() any {
+	return map[string]any{
+		"type": "object",
+		"properties": map[string]any{
+			"path": map[string]any{
+				"description": i18n.Tr(i18n.ReadArgPath),
+			},
+		},
+		"required": []string{"path"},
+	}
 }

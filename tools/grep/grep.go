@@ -8,14 +8,15 @@ import (
 	"path/filepath"
 	"regexp"
 
+	"github.com/WinPooh32/hands/pkg/i18n"
 	"github.com/WinPooh32/hands/pkg/mcputil"
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
 
 type GrepInput struct {
-	Pattern    string `json:"pattern" jsonschema:"pattern to search for (regex)"`
-	Path       string `json:"path" jsonschema:"file or directory to search in"`
-	IgnoreCase bool   `json:"ignoreCase,omitzero" jsonschema:"ignore case in search (default: false)"`
+	Pattern    string `json:"pattern"`
+	Path       string `json:"path"`
+	IgnoreCase bool   `json:"ignoreCase,omitzero"`
 }
 
 func Grep(ctx context.Context, _ *mcp.CallToolRequest, input GrepInput) (*mcp.CallToolResult, any, error) {
@@ -76,6 +77,25 @@ func Grep(ctx context.Context, _ *mcp.CallToolRequest, input GrepInput) (*mcp.Ca
 	}
 
 	return mcputil.TextResult(result), nil, nil
+}
+
+// Schema returns the JSON schema for GrepInput with translated descriptions
+func Schema() any {
+	return map[string]any{
+		"type": "object",
+		"properties": map[string]any{
+			"pattern": map[string]any{
+				"description": i18n.Tr(i18n.GrepArgPattern),
+			},
+			"path": map[string]any{
+				"description": i18n.Tr(i18n.GrepArgPath),
+			},
+			"ignoreCase": map[string]any{
+				"description": i18n.Tr(i18n.GrepArgIgnoreCase),
+			},
+		},
+		"required": []string{"pattern", "path"},
+	}
 }
 
 func searchFile(path string, re *regexp.Regexp, results *[]string) error {
