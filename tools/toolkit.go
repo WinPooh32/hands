@@ -20,6 +20,10 @@ type Kit struct {
 	tools  []mcp.Tool
 }
 
+func (kit *Kit) Server() *mcp.Server {
+	return kit.server
+}
+
 func (kit *Kit) Add(t mcp.Tool) error {
 	if t.Name == "" {
 		return fmt.Errorf("tool name cannot be empty")
