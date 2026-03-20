@@ -86,15 +86,15 @@ func Schema() any {
 		"properties": map[string]any{
 			"pattern": map[string]any{
 				"description": i18n.Tr(i18n.GrepArgPattern),
-				"type": "string",
+				"type":        "string",
 			},
 			"path": map[string]any{
 				"description": i18n.Tr(i18n.GrepArgPath),
-				"type": "string",
+				"type":        "string",
 			},
 			"ignoreCase": map[string]any{
 				"description": i18n.Tr(i18n.GrepArgIgnoreCase),
-				"type": "boolean",
+				"type":        "boolean",
 			},
 		},
 		"required": []string{"pattern", "path"},

@@ -41,11 +41,11 @@ func Schema() any {
 		"properties": map[string]any{
 			"path": map[string]any{
 				"description": i18n.Tr(i18n.WriteArgPath),
-				"type": "string",
+				"type":        "string",
 			},
 			"content": map[string]any{
 				"description": i18n.Tr(i18n.WriteArgContent),
-				"type": "string",
+				"type":        "string",
 			},
 		},
 		"required": []string{"path", "content"},
