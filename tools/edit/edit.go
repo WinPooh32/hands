@@ -56,12 +56,15 @@ func Schema() any {
 		"properties": map[string]any{
 			"path": map[string]any{
 				"description": i18n.Tr(i18n.EditArgPath),
+				"type": "string",
 			},
 			"search": map[string]any{
 				"description": i18n.Tr(i18n.EditArgSearch),
+				"type": "string",
 			},
 			"replace": map[string]any{
 				"description": i18n.Tr(i18n.EditArgReplace),
+				"type": "string",
 			},
 		},
 		"required": []string{"path", "search", "replace"},

@@ -54,9 +54,11 @@ func Schema() any {
 		"properties": map[string]any{
 			"command": map[string]any{
 				"description": i18n.Tr(i18n.BashArgCommand),
+				"type": "string",
 			},
 			"workingDir": map[string]any{
 				"description": i18n.Tr(i18n.BashArgWorkingDir),
+				"type": "string",
 			},
 		},
 		"required": []string{"command"},

@@ -65,9 +65,11 @@ func Schema() any {
 		"properties": map[string]any{
 			"pattern": map[string]any{
 				"description": i18n.Tr(i18n.GlobArgPattern),
+				"type": "string",
 			},
 			"dir": map[string]any{
 				"description": i18n.Tr(i18n.GlobArgDir),
+				"type": "string",
 			},
 		},
 		"required": []string{"pattern"},
